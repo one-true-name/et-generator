@@ -27,7 +27,7 @@ const endings: any = {
 };
 
 export default defineComponent({
-  name: 'HelloWorld',
+  name: 'vETGenerator',
   props: {
     msg: String,
   },
@@ -37,27 +37,25 @@ export default defineComponent({
     };
   },
   methods: {
-    randomWordPair(): String {
+    randomWordPair(): string {
       const eNoun = true && Math.random() < 0.5;
       const plural = !eNoun && Math.random() < 0.5;
       const randomE = Math.random();
       const randomT = Math.random();
       // console.log(randomE, randomT, eAdjectives, randomT, eNouns, tNouns);
-
-      var e: String = eNoun
+      var e: string = eNoun
         ? eNouns[Math.round(randomT * eNouns.length)]
         : eAdjectives[Math.round(randomE * eAdjectives.length)];
-      var t: String = tNouns[Math.round(randomT * tNouns.length)];
-      // console.log(e, t);
+      var t: string = tNouns[Math.round(randomT * tNouns.length)];
 
       if (plural) {
         var found = false;
         for (let chars = 0; chars < t.length; chars++) {
           const element = t.substring(t.length - chars, t.length);
-          // console.log(endings[element], element, t.charAt(t.length));
+          // console.log(endings[element], element, t.charAt(t.length - 2));
           if (endings[element]) {
-            if (t.charAt(t.length) == "y"
-              && !["a", "e", "i", "o", "u"].includes(t.charAt(t.length - 1))) {
+            if (t.charAt(t.length - 1) == "y"
+              && !["a", "e", "i", "o", "u"].includes(t.charAt(t.length - 2))) {
               t = t.substring(0, t.length - chars) + endings[element];
               found = true;
             }

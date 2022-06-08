@@ -1,4 +1,4 @@
-# hello-world
+# et-generator
 
 ## Project setup
 ```

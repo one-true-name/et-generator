@@ -37,21 +37,27 @@ export default defineComponent({
   },
   methods: {
     randomWordPair(): String {
+      const plural = Math.random() < 0.5;
       const randomE = Math.random();
       const randomT = Math.random();
-      console.log(randomE, adjectives, randomT, nouns);
+      // console.log(randomE, adjectives, randomT, nouns);
+
       var e: String = adjectives[Math.round(randomE * adjectives.length)];
       var t: String = nouns[Math.round(randomT * nouns.length)];
-      console.log(e, t);
-      const plural = Math.random() < 0.5;
+      // console.log(e, t);
+
       if (plural) {
         var found = false;
         for (let chars = 0; chars < t.length; chars++) {
-          const element = t.substring(-1, -1 - chars);
-          console.log(endings[element], element);
+          const element = t.substring(t.length - chars, t.length);
+          // console.log(endings[element], element, t.charAt(t.length));
           if (endings[element]) {
-            t = t.substring(0, t.length - chars) + endings[element];
-            found = true;
+            if (t.charAt(t.length) == "y"
+              && !["a", "e", "i", "o", "u"].includes(t.charAt(t.length - 1))) {
+              t = t.substring(0, t.length - chars) + endings[element];
+              found = true;
+            }
+            else break;
           }
         }
 
@@ -59,7 +65,7 @@ export default defineComponent({
           t = t + "s";
       }
 
-      return e + " " + t;
+      return `${e} ${t}`.toLocaleLowerCase();
     },
     setRandomWordPair() {
       //@ts-ignore

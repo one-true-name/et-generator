@@ -7,8 +7,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import adjectives from './adjectives';
-import nouns from './nouns';
+import eAdjectives from './e-adjectives';
+import tNouns from './t-nouns';
+import eNouns from './e-nouns';
 
 const ies = "ies";
 const es = "es";
@@ -37,13 +38,16 @@ export default defineComponent({
   },
   methods: {
     randomWordPair(): String {
-      const plural = Math.random() < 0.5;
+      const eNoun = true && Math.random() < 0.5;
+      const plural = !eNoun && Math.random() < 0.5;
       const randomE = Math.random();
       const randomT = Math.random();
-      // console.log(randomE, adjectives, randomT, nouns);
+      // console.log(randomE, randomT, eAdjectives, randomT, eNouns, tNouns);
 
-      var e: String = adjectives[Math.round(randomE * adjectives.length)];
-      var t: String = nouns[Math.round(randomT * nouns.length)];
+      var e: String = eNoun
+        ? eNouns[Math.round(randomT * eNouns.length)]
+        : eAdjectives[Math.round(randomE * eAdjectives.length)];
+      var t: String = tNouns[Math.round(randomT * tNouns.length)];
       // console.log(e, t);
 
       if (plural) {
